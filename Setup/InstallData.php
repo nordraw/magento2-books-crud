@@ -9,10 +9,15 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 class InstallData implements InstallDataInterface
 {
     protected $_bookFactory;
+    protected $resourceBook;
 
-    public function __construct(\Encomage\Books\Model\BookFactory $bookFactory)
+    public function __construct(
+        \Encomage\Books\Model\BookFactory             $bookFactory,
+        \Encomage\Books\Model\Book\ResourceModel\Book $bookResource
+    )
     {
         $this->_bookFactory = $bookFactory;
+        $this->resourceBook = $bookResource;
     }
 
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
@@ -25,6 +30,7 @@ class InstallData implements InstallDataInterface
         ];
 
         $book = $this->_bookFactory->create();
-        $book->addData($data)->save();
+        $book->addData($data);
+        $this->resourceBook->save($book);
     }
 }
