@@ -10,6 +10,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
 
     protected function _construct()
     {
-        $this->_init('Encomage\Books\Model\Book', 'Encomage\Books\ResourceModel\Book');
+        $this->_init('Encomage\Books\Model\Book', 'Encomage\Books\Model\ResourceModel\Book');
     }
 }
