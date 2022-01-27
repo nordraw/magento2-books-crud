@@ -27,11 +27,12 @@ class Save implements HttpPostActionInterface
     public function execute()
     {
         $bookData = $this->_request->getPost();
-        $data = [
-            'title' => $bookData['title'],
-            'author_id' => $bookData['author_id'],
-            'total_pages' => (int)$bookData['total_pages'],
-        ];
+
+        $data = array();
+        foreach ($bookData as $key => $value) {
+            $data[$key] = $value;
+        }
+
         $book = $this->_book->setData($data);
         $this->_bookResource->save($book);
 

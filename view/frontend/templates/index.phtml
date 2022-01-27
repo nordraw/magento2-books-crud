@@ -2,7 +2,10 @@
     <tr>
         <th>Id</th>
         <th>Title</th>
+        <th>Author</th>
         <th>Total Pages</th>
+        <th></th>
+        <th></th>
     </tr>
     <?php
     /** @var Encomage\Book\Block\Index $block */
@@ -16,7 +19,18 @@
                 <?php echo $item->getTitle(); ?>
             </td>
             <td>
+                <?php echo $item->getAuthor(); ?>
+            </td>
+            <td>
                 <?php echo $item->getTotalPages(); ?>
+            </td>
+            <td>
+                <a class="action primary" href="<?php echo($block->getEditUrl() . 'id/' . $item->getId()); ?>">Edit
+                    book</a>
+            </td>
+            <td>
+                <a class="action primary" href="<?php echo($block->getDeleteUrl() . 'id/' . $item->getId()); ?>">Delete
+                    book</a>
             </td>
         </tr>
     <?php endforeach; ?>
