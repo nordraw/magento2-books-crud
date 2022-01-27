@@ -12,11 +12,11 @@ class UpgradeData implements UpgradeDataInterface
     {
         $setup->startSetup();
 
-        if ($context->getVersion() && version_compare($context->getVersion(), '1.1.0') < 0) {
+        if ($context->getVersion() && version_compare($context->getVersion(), '1.1.0', '<')) {
             $tableName = $setup->getTable('encomage_books_book');
 
             $data = [
-                'author_id' => 2,
+                'author_id' => 'Lorem Ipsum',
                 'title' => 'Don Quixote',
                 'image' => 'view/frontend/web/images/don-quixote.jpg',
                 'total_pages' => 245,

@@ -1,0 +1,19 @@
+<form action="<?php echo $block->getSaveUrl(); ?>" method="post" enctype="multipart/form-data">
+    <div class="input-group">
+        <input name = "title" type="text" class="form-control" placeholder="Book title">
+    </div>
+    <br>
+    <div class="input-group">
+        <input name = "author_id" type="text" class="form-control" placeholder="Author">
+    </div>
+    <br>
+    <div class="input-group">
+        <input name = "total_pages" type="number" class="form-control" placeholder="Total Pages">
+    </div>
+    <br>
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-10">
+            <button type="submit" class="btn btn-primary">Create new book</button>
+        </div>
+    </div>
+</form>

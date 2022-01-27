@@ -12,8 +12,8 @@ class InstallData implements InstallDataInterface
     protected $resourceBook;
 
     public function __construct(
-        \Encomage\Books\Model\BookFactory             $bookFactory,
-        \Encomage\Books\Model\Book\ResourceModel\Book $bookResource
+        \Encomage\Books\Model\BookFactory        $bookFactory,
+        \Encomage\Books\Model\ResourceModel\Book $bookResource
     )
     {
         $this->_bookFactory = $bookFactory;
@@ -23,7 +23,7 @@ class InstallData implements InstallDataInterface
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
         $data = [
-            'author_id' => 1,
+            'author' => 'Somebody',
             'title' => 'The Adventures of Huckleberry Finn',
             'image' => 'view/frontend/web/images/huckleberry-finn.jpg',
             'total_pages' => 353,

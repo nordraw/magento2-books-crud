@@ -4,7 +4,7 @@ namespace Encomage\Books\Controller\Index;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 
-class Index implements HttpGetActionInterface
+class Insert implements HttpGetActionInterface
 {
     protected $_pageFactory;
 

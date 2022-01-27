@@ -29,20 +29,17 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                     'Book ID'
                 )
                 ->addColumn(
-                    'author_id',
-                    Table::TYPE_INTEGER,
+                    'author',
+                    Table::TYPE_TEXT,
                     null,
-                    [
-                        'nullable' => false,
-                        'unsigned' => true,
-                    ],
+                    ['nullable' => false],
                     'Author ID'
                 )
                 ->addColumn(
                     'title',
                     \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                     255,
-                    ['nullable => false'],
+                    ['nullable' => false],
                     'Book Title'
                 )
                 ->addColumn(

@@ -27,4 +27,9 @@ class Index extends \Magento\Framework\View\Element\Template
 
         return $bookCollection;
     }
+
+    public function getInsertUrl()
+    {
+        return $this->getUrl('books/index/insert');
+    }
 }
