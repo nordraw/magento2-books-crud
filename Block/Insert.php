@@ -2,11 +2,17 @@
 
 namespace Encomage\Books\Block;
 
-class Insert extends \Magento\Framework\View\Element\Template
+use \Magento\Framework\View\Element\Template;
+use \Magento\Framework\View\Element\Template\Context;
+
+class Insert extends Template
 {
-    public function __construct(\Magento\Framework\View\Element\Template\Context $context)
+    public function __construct(
+        Context $context,
+        array   $data = []
+    )
     {
-        parent::__construct($context);
+        parent::__construct($context, $data);
     }
 
     public function getSaveUrl()

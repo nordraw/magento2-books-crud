@@ -2,35 +2,42 @@
 
 namespace Encomage\Books\Block;
 
-use Encomage\Books\Model\ResourceModel\Book\Collection as BookCollection;
+use \Magento\Framework\View\Element\Template;
+use \Magento\Framework\View\Element\Template\Context;
+use \Magento\Framework\App\Request\Http;
+use \Encomage\Books\Model\ResourceModel\Book\CollectionFactory;
 
-class Edit extends \Magento\Framework\View\Element\Template
+use \Encomage\Books\Model\ResourceModel\BookFactory as BookResoureFactory;
+use \Encomage\Books\Model\BookFactory;
+
+class Edit extends Template
 {
-    protected $_request;
-    protected $_bookCollectionFactory;
+    protected $request;
+    protected $bookCollectionFactory;
+    protected $bookFactory;
+    protected $bookResource;
 
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context           $context,
-        \Magento\Framework\App\Request\Http                        $request,
-        \Encomage\Books\Model\ResourceModel\Book\CollectionFactory $bookCollectionFactory,
-        array                                                      $data = [])
+        Context            $context,
+        Http               $request,
+        CollectionFactory  $bookCollectionFactory,
+        BookFactory        $bookFactory,
+        BookResoureFactory $bookResource,
+
+        array              $data = [])
     {
-        $this->_request = $request;
-        $this->_bookCollectionFactory = $bookCollectionFactory;
+        $this->request = $request;
+        $this->bookCollectionFactory = $bookCollectionFactory;
+        $this->bookFactory = $bookFactory;
+        $this->bookResource = $bookResource;
         parent::__construct($context, $data);
     }
 
-//    public function getUpdateUrl()
-//    {
-//        $this->getUrl('books/index/update');
-//    }
-
     public function getBookData()
     {
-        $bookId = $this->_request->getParam('id');
+        $bookId = $this->request->getParam('id');
 
-        /** @var BookCollection $bookCollection */
-        $bookCollection = $this->_bookCollectionFactory->create();
+        $bookCollection = $this->bookCollectionFactory->create();
 
         $bookCollection->addFieldToFilter('book_id', ['eq' => (int)$bookId]);
         $bookCollection->addFieldToSelect(['title', 'author', 'image', 'total_pages']);

@@ -2,21 +2,22 @@
 
 namespace Encomage\Books\Controller\Index;
 
-use Magento\Framework\App\Action\HttpGetActionInterface;
+use \Magento\Framework\App\Action\HttpGetActionInterface;
+use \Magento\Framework\View\Result\PageFactory;
 
 class Edit implements HttpGetActionInterface
 {
-    protected $_pageFactory;
+    protected $pageFactory;
 
     public function __construct(
-        \Magento\Framework\View\Result\PageFactory $pageFactory
+        PageFactory $pageFactory
     )
     {
-        $this->_pageFactory = $pageFactory;
+        $this->pageFactory = $pageFactory;
     }
 
     public function execute()
     {
-        return $this->_pageFactory->create();
+        return $this->pageFactory->create();
     }
 }
