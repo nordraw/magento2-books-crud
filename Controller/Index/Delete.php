@@ -3,40 +3,32 @@
 namespace Encomage\Books\Controller\Index;
 
 use \Magento\Framework\App\Action\HttpGetActionInterface;
-use \Encomage\Books\Model\ResourceModel\BookFactory as BookResourceFactory;
-use \Encomage\Books\Model\BookFactory;
 use \Magento\Framework\App\Request\Http;
 use \Magento\Backend\Model\View\Result\RedirectFactory;
+use \Encomage\Books\Api\BookRepositoryInterface;
 
 class Delete implements HttpGetActionInterface
 {
-    protected $bookResourceFactory;
-    protected $bookFactory;
     protected $request;
     protected $redirectFactory;
+    protected $bookRepository;
 
     public function __construct(
-        BookResourceFactory $bookResourceFactory,
-        BookFactory         $bookFactory,
-        Http                $request,
-        RedirectFactory     $redirectFactory
+        Http                    $request,
+        RedirectFactory         $redirectFactory,
+        BookRepositoryInterface $bookRepository
     )
     {
-        $this->bookResourceFactory = $bookResourceFactory;
-        $this->bookFactory = $bookFactory;
         $this->request = $request;
         $this->redirectFactory = $redirectFactory;
+        $this->bookRepository = $bookRepository;
     }
 
     public function execute()
     {
         $bookId = $this->request->getParams('id');
 
-        $book = $this->bookFactory->create();
-        $book->setId($bookId);
-
-        $bookResource = $this->bookResourceFactory->create();
-        $bookResource->delete($book);
+        $this->bookRepository->deleteById($bookId);
 
         $redirect = $this->redirectFactory->create();
         $redirect->setUrl('/books/index/index');

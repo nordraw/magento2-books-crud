@@ -4,27 +4,25 @@ namespace Encomage\Books\Block;
 
 use \Magento\Framework\View\Element\Template;
 use \Magento\Framework\View\Element\Template\Context;
-use \Encomage\Books\Model\ResourceModel\Book\CollectionFactory;
+use \Encomage\Books\Api\BookRepositoryInterface;
 
 class Index extends Template
 {
-    protected $bookCollectionFactory = null;
+    protected $bookRepository;
 
     public function __construct(
-        Context           $context,
-        CollectionFactory $bookCollectionFactory,
-        array             $data = [])
+        Context                 $context,
+        BookRepositoryInterface $bookRepository,
+        array                   $data = []
+    )
     {
-        $this->bookCollectionFactory = $bookCollectionFactory;
+        $this->bookRepository = $bookRepository;
         parent::__construct($context, $data);
     }
 
     public function getResult()
     {
-        $bookCollection = $this->bookCollectionFactory->create();
-
-        $bookCollection->addFieldToSelect(['book_id', 'title', 'author', 'image', 'total_pages']);
-        $bookCollection->getSelect()->order('book_id ASC');
+        $bookCollection = $this->bookRepository->getAll();
 
         return $bookCollection;
     }

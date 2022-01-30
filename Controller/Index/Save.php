@@ -4,45 +4,40 @@ namespace Encomage\Books\Controller\Index;
 
 use \Magento\Framework\App\Action\HttpPostActionInterface;
 use \Magento\Framework\App\Request\Http;
-use \Encomage\Books\Model\ResourceModel\BookFactory as BookResourceFactory;
 use \Magento\Framework\Controller\Result\RedirectFactory;
 use \Encomage\Books\Model\BookFactory;
+use \Encomage\Books\Api\BookRepositoryInterface;
 
 class Save implements HttpPostActionInterface
 {
     protected $request;
-    protected $bookResourceFactory;
     protected $redirectFactory;
     protected $bookFactory;
+    protected $bookRepository;
 
     public function __construct(
-        Http                $request,
-        BookResourceFactory $bookResourceFactory,
-        RedirectFactory     $redirectFactory,
-        BookFactory         $bookFactory
+        Http                    $request,
+        RedirectFactory         $redirectFactory,
+        BookFactory             $bookFactory,
+        BookRepositoryInterface $bookRepository
     )
     {
         $this->request = $request;
-        $this->bookResourceFactory = $bookResourceFactory;
         $this->redirectFactory = $redirectFactory;
         $this->bookFactory = $bookFactory;
+        $this->bookRepository = $bookRepository;
     }
 
     public function execute()
     {
         $bookData = $this->request->getPost();
 
-        $data = array();
-        foreach ($bookData as $key => $value) {
-            $data[$key] = $value;
-        }
-
         $book = $this->bookFactory->create();
-        $book->setData($data);
+        $book->setTitle($bookData['title']);
+        $book->setAuthor($bookData['author']);
+        $book->setTotalPages($bookData['total_pages']);
 
-        $bookResource = $this->bookResourceFactory->create();
-        $bookResource->save($book);
-
+        $this->bookRepository->save($book);
 
         $redirect = $this->redirectFactory->create();
         $redirect->setPath('books');
