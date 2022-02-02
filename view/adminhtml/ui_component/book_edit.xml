@@ -14,6 +14,9 @@
         </item>
         <item name="spinner" xsi:type="string">book_edit</item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="string">Encomage\Books\Block\Adminhtml\Book\Edit\Save</item>
+        </item>
     </argument>
     <dataSource name="book_edit_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
@@ -30,6 +33,9 @@
                 <item name="submit_url" xsi:type="url" path="*/*/save"/>
             </item>
         </argument>
+        <settings>
+            <submitUrl path="books/book/save"/>
+        </settings>
     </dataSource>
     <fieldset name="book_edit">
         <argument name="data" xsi:type="array">
@@ -38,22 +44,18 @@
                 <item name="label" xsi:type="string" translate="true">Book</item>
                 <item name="sortOrder" xsi:type="number">10</item>
             </item>
-            <item name="buttons" xsi:type="array">
-                <item name="save" xsi:type="array">
-                    <item name="name" xsi:type="string">save</item>
-                    <item name="label" xsi:type="string" translate="true">Edit Book</item>
-                    <item name="class" xsi:type="string">primary</item>
-                    <item name="url" xsi:type="string">*/*/edit</item>
-                </item>
-            </item>
         </argument>
-        <!--        <field name="book_id">-->
-        <!--            <argument name="data" xsi:type="array">-->
-        <!--                <item name="config" xsi:type="array">-->
-        <!--                    -->
-        <!--                </item>-->
-        <!--            </argument>-->
-        <!--        </field>-->
+        <field name="book_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">integer</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">book_id</item>
+                    <item name="dataScope" xsi:type="string">book_id</item>
+                </item>
+            </argument>
+        </field>
         <field name="title">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -76,6 +78,9 @@
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">author</item>
                     <item name="dataScope" xsi:type="string">author</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -87,6 +92,9 @@
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">total_pages</item>
                     <item name="dataScope" xsi:type="string">total_pages</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>

@@ -9,7 +9,7 @@ use \Magento\Ui\Component\Listing\Columns\Column;
 
 class Actions extends Column
 {
-    const ROW_EDIT_URL = 'books/book/insert';
+    const ROW_EDIT_URL = 'books/book/edit';
     protected $urlBuilder;
     protected $editUrl;
 

@@ -18,6 +18,7 @@
             <item name="save" xsi:type="string">Encomage\Books\Block\Adminhtml\Book\Edit\Save</item>
         </item>
     </argument>
+
     <dataSource name="book_insert_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Encomage\Books\Model\DataProvider</argument>
@@ -33,6 +34,9 @@
                 <item name="submit_url" xsi:type="url" path="*/*/save"/>
             </item>
         </argument>
+        <settings>
+            <submitUrl path="books/book/save"/>
+        </settings>
     </dataSource>
     <fieldset name="book_save">
         <argument name="data" xsi:type="array">
@@ -64,6 +68,9 @@
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">author</item>
                     <item name="dataScope" xsi:type="string">author</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -75,6 +82,9 @@
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">total_pages</item>
                     <item name="dataScope" xsi:type="string">total_pages</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
