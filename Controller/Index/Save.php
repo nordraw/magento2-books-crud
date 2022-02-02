@@ -33,6 +33,9 @@ class Save implements HttpPostActionInterface
         $bookData = $this->request->getPost();
 
         $book = $this->bookFactory->create();
+        if (isset($bookData['book_id'])) {
+            $book->setId($bookData['book_id']);
+        }
         $book->setTitle($bookData['title']);
         $book->setAuthor($bookData['author']);
         $book->setTotalPages($bookData['total_pages']);
