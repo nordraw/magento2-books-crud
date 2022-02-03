@@ -36,15 +36,15 @@ class Save implements HttpPostActionInterface
         if (isset($bookData['book_id']) && !empty($bookData['book_id'])) {
             $book->setId($bookData['book_id']);
         }
-        if (isset($bookData['total_pages']) && !empty($bookData['total_pages'])) {
-            $book->setTotalPages($bookData['total_pages']);
-        }
+        $book->setTotalPages($bookData['total_pages']);
         $book->setTitle($bookData['title']);
         $book->setAuthor($bookData['author']);
 
         $this->bookRepository->save($book);
 
         $redirect = $this->redirectFactory->create();
-        return $redirect->setPath('*/*/listing');
+        $redirect->setPath('*/*/listing');
+
+        return $redirect;
     }
 }
