@@ -32,4 +32,9 @@ class Edit extends Template
 
         return $bookCollection;
     }
+
+    public function getSaveUrl()
+    {
+        return $this->getUrl('books/index/save');
+    }
 }

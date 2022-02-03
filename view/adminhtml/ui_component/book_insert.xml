@@ -18,7 +18,6 @@
             <item name="save" xsi:type="string">Encomage\Books\Block\Adminhtml\Book\Edit\Save</item>
         </item>
     </argument>
-
     <dataSource name="book_insert_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Encomage\Books\Model\DataProvider</argument>

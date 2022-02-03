@@ -43,7 +43,7 @@ class Save implements HttpPostActionInterface
         $this->bookRepository->save($book);
 
         $redirect = $this->redirectFactory->create();
-        $redirect->setPath('books');
+        $redirect->setPath('books/index/listing');
 
         return $redirect;
     }

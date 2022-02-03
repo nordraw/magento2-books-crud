@@ -1,12 +1,12 @@
 <?php foreach ($block->getBookData() as $item): ?>
-    <form action="<?php echo $block->getUrl('books/index/save'); ?>" method="post"
+    <form action="<?php echo $block->getSaveUrl(); ?>" method="post"
           enctype="multipart/form-data">
         <table>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Total pages</th>
+                <th><?php echo __('Id'); ?></th>
+                <th><?php echo __('Title'); ?></th>
+                <th><?php echo __('Author'); ?></th>
+                <th><?php echo __('Total Pages'); ?></th>
             </tr>
             <tr>
                 <th>
@@ -26,14 +26,14 @@
                 <th>
                     <div class="input-group">
                         <input name="author" type="text" class="form-control" placeholder="Author"
-                               value= <?php echo $item['author'] ?>>
+                               value= <?php echo $item['author']; ?>>
                     </div>
                 </th>
                 <br>
                 <th>
                     <div class="input-group">
                         <input name="total_pages" type="number" class="form-control" placeholder="Total Pages"
-                               value= <?php echo $item['total_pages'] ?>>
+                               value= <?php echo $item['total_pages']; ?>>
                     </div>
                 </th>
             </tr>
@@ -41,7 +41,7 @@
         <br>
         <div class="form-group">
             <div>
-                <button type="submit">Update book</button>
+                <button type="submit"><?php echo __('Update book'); ?></button>
             </div>
         </div>
     </form>

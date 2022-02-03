@@ -12,7 +12,8 @@ class Save implements HttpPostActionInterface
 {
     protected $request;
     protected $redirectFactory;
-    private $bookFactory;
+    protected $bookFactory;
+    protected $bookRepository;
 
     public function __construct(
         Http                    $request,
@@ -44,6 +45,6 @@ class Save implements HttpPostActionInterface
         $this->bookRepository->save($book);
 
         $redirect = $this->redirectFactory->create();
-        return $redirect->setPath('*/*/index');
+        return $redirect->setPath('*/*/listing');
     }
 }

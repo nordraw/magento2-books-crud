@@ -6,7 +6,7 @@ use \Magento\Framework\View\Element\Template;
 use \Magento\Framework\View\Element\Template\Context;
 use \Encomage\Books\Api\BookRepositoryInterface;
 
-class Index extends Template
+class Listing extends Template
 {
     protected $bookRepository;
 
@@ -32,13 +32,13 @@ class Index extends Template
         return $this->getUrl('books/index/insert');
     }
 
-    public function getEditUrl()
+    public function getEditUrl($id)
     {
-        return $this->getUrl('books/index/edit');
+        return $this->getUrl('books/index/edit', ['id' => $id]);
     }
 
-    public function getDeleteUrl()
+    public function getDeleteUrl($id)
     {
-        return $this->getUrl('books/index/delete');
+        return $this->getUrl('books/index/delete', ['id' => $id]);
     }
 }

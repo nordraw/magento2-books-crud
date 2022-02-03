@@ -1,11 +1,11 @@
 <?php
 
-namespace Encomage\Books\Controller\Adminhtml\Book;
+namespace Encomage\Books\Controller\Index;
 
 use \Magento\Framework\App\Action\HttpGetActionInterface;
 use \Magento\Framework\View\Result\PageFactory;
 
-class Index implements HttpGetActionInterface
+class Listing implements HttpGetActionInterface
 {
     protected $pageFactory;
 
@@ -18,8 +18,6 @@ class Index implements HttpGetActionInterface
 
     public function execute()
     {
-        $resultPage = $this->pageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__('Books'));
-        return $resultPage;
+        return $this->pageFactory->create();
     }
 }

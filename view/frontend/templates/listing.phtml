@@ -1,9 +1,9 @@
 <table>
     <tr>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Total Pages</th>
+        <th><?php echo __('Id'); ?></th>
+        <th><?php echo __('Title'); ?></th>
+        <th><?php echo __('Author'); ?></th>
+        <th><?php echo __('Total Pages'); ?></th>
         <th></th>
         <th></th>
     </tr>
@@ -25,15 +25,13 @@
                 <?php echo $item->getTotalPages(); ?>
             </td>
             <td>
-                <a class="action primary" href="<?php echo($block->getEditUrl() . 'id/' . $item->getId()); ?>">Edit
-                    book</a>
+                <a class="action primary" href="<?php echo($block->getEditUrl($item->getId())); ?>"><?php echo __('Edit book'); ?></a>
             </td>
             <td>
-                <a class="action primary" href="<?php echo($block->getDeleteUrl() . 'id/' . $item->getId()); ?>">Delete
-                    book</a>
+                <a class="action primary" href="<?php echo($block->getDeleteUrl($item->getId())); ?>"><?php echo __('Delete book'); ?></a>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
 <br>
-<a class="action primary" href="<?php echo $block->getInsertUrl(); ?>">Add new book</a>
+<a class="action primary" href="<?php echo $block->getInsertUrl(); ?>"><?php echo __('Add new book'); ?></a>
