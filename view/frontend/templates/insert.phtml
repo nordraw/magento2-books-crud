@@ -1,14 +1,21 @@
 <form action="<?php echo $block->getSaveUrl(); ?>" method="post" enctype="multipart/form-data">
     <div class="input-group">
-        <input name = "title" type="text" class="form-control" placeholder="Book title">
+        <input name = "title" type="text" class="form-control" placeholder="Book title" required="true">
     </div>
     <br>
     <div class="input-group">
-        <input name = "author" type="text" class="form-control" placeholder="Author">
+        <input name = "author" type="text" class="form-control" placeholder="Author" required="true">
     </div>
     <br>
     <div class="input-group">
-        <input name = "total_pages" type="number" class="form-control" placeholder="Total Pages">
+        <input name = "total_pages" type="number" class="form-control" placeholder="Total Pages" required="true">
+    </div>
+    <br>
+    <div class="input-group">
+        <label for="image">
+            <span><?php echo __('Select image'); ?></span>
+        </label>
+        <input name = "image" type="file" id="image">
     </div>
     <br>
     <div class="form-group">

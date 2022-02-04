@@ -31,7 +31,7 @@ class Delete implements HttpGetActionInterface
         $this->bookRepository->deleteById($bookId);
 
         $redirect = $this->redirectFactory->create();
-        $redirect->setUrl('/books/index/index');
+        $redirect->setUrl('/books/index/listing');
 
         return $redirect;
     }

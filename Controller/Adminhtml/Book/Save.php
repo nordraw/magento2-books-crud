@@ -30,17 +30,20 @@ class Save implements HttpPostActionInterface
 
     public function execute()
     {
-        $bookData = $this->request->getPost();
+        $bookData = $this->request->getPostValue();
 
-        $book = $this->bookFactory->create();
-        if (isset($bookData['book_id']) && !empty($bookData['book_id'])) {
-            $book->setId($bookData['book_id']);
+        if ($bookData) {
+            $book = $this->bookFactory->create();
+
+            if (isset($bookData['book_id']) && !empty($bookData['book_id'])) {
+                $book->setId($bookData['book_id']);
+            }
+            $book->setTotalPages($bookData['total_pages']);
+            $book->setTitle($bookData['title']);
+            $book->setAuthor($bookData['author']);
+
+            $this->bookRepository->save($book);
         }
-        $book->setTotalPages($bookData['total_pages']);
-        $book->setTitle($bookData['title']);
-        $book->setAuthor($bookData['author']);
-
-        $this->bookRepository->save($book);
 
         $redirect = $this->redirectFactory->create();
         $redirect->setPath('*/*/listing');
