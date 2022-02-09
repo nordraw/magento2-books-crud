@@ -3,63 +3,143 @@
 namespace Encomage\Books\Model;
 
 use \Encomage\Books\Api\BookRepositoryInterface;
-use \Encomage\Books\Model\BookFactory;
+use \Encomage\Books\Api\Data\BookInterface;
+use \Encomage\Books\Api\Data\BookSearchResultsInterface;
+use \Encomage\Books\Api\Data\BookSearchResultsInterfaceFactory;
 use \Encomage\Books\Model\ResourceModel\Book\CollectionFactory;
-use \Encomage\Books\Model\ResourceModel\BookFactory as BookResourceFactory;
+use \Encomage\Books\Model\ResourceModel\Book as BookResource;
+use \Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use \Magento\Framework\Api\SearchCriteriaInterface;
+use \Magento\Framework\Exception\CouldNotDeleteException;
+use \Magento\Framework\Exception\CouldNotSaveException;
+use \Magento\Framework\Exception\NoSuchEntityException;
 
 class BookRepository implements BookRepositoryInterface
 {
-    protected $bookFactory;
-    protected $bookResourceFactory;
+    /**
+     * @var BookResource
+     */
+    protected $bookResource;
+
+    /**
+     * @var CollectionFactory
+     */
     protected $bookCollectionFactory;
 
+    /**
+     * @var CollectionProcessorInterface
+     */
+    protected $collectionProcessor;
+
+    /**
+     * @var BookSearchResultsInterfaceFactory
+     */
+    protected $searchResultsFactory;
+
+    /**
+     * @var BookFactory
+     */
+    protected $bookFactory;
+
+    /**
+     * @param BookResource $bookResource
+     * @param CollectionFactory $bookCollectionFactory
+     * @param CollectionProcessorInterface $collectionProcessor
+     * @param BookSearchResultsInterfaceFactory $searchResultsFactory
+     * @param BookFactory $bookFactory
+     */
     public function __construct(
-        BookFactory         $bookFactory,
-        BookResourceFactory $bookResourceFactory,
-        CollectionFactory   $bookCollectionFactory
+        BookResource                      $bookResource,
+        CollectionFactory                 $bookCollectionFactory,
+        CollectionProcessorInterface      $collectionProcessor,
+        BookSearchResultsInterfaceFactory $searchResultsFactory,
+        BookFactory                       $bookFactory
     )
     {
-        $this->bookFactory = $bookFactory;
-        $this->bookResourceFactory = $bookResourceFactory;
+        $this->bookResource = $bookResource;
         $this->bookCollectionFactory = $bookCollectionFactory;
+        $this->collectionProcessor = $collectionProcessor;
+        $this->searchResultsFactory = $searchResultsFactory;
+        $this->bookFactory = $bookFactory;
     }
 
-    public function save($book)
+    /**
+     * Save a Book
+     * @param BookInterface $book
+     * @return BookInterface
+     * @throws CouldNotSaveException
+     */
+    public function save(BookInterface $book)
     {
-        $bookResource = $this->bookResourceFactory->create();
-        $bookResource->save($book);
-
+        try {
+            $this->bookResource->save($book);
+        } catch (\Exception $exception) {
+            throw new CouldNotSaveException(__($exception->getMessage()));
+        }
         return $book;
     }
 
-    public function getById($id)
-    {
-        $bookCollection = $this->bookCollectionFactory->create();
-        $bookCollection->addFieldToFilter('book_id', ['eq' => (int)$id]);
-        $bookCollection->addFieldToSelect(['title', 'author', 'image', 'total_pages']);
-        $bookCollection->getSelect();
-
-        return $bookCollection;
-    }
-
-    public function getAll()
-    {
-        $bookCollection = $this->bookCollectionFactory->create();
-
-        $bookCollection->addFieldToSelect(['book_id', 'title', 'author', 'image', 'total_pages']);
-        $bookCollection->getSelect()->order('book_id ASC');
-
-        return $bookCollection;
-    }
-
-    public function deleteById($id)
+    /**
+     * Load Book data by given Book Identity
+     * @param $bookId
+     * @return BookInterface|Book
+     * @throws NoSuchEntityException
+     */
+    public function getById($bookId)
     {
         $book = $this->bookFactory->create();
-        $book->setId($id);
-
-        $bookResource = $this->bookResourceFactory->create();
-        $bookResource->delete($book);
-
+        $this->bookResource->load($book, $bookId);
+        if (!$book->getId()) {
+            throw new NoSuchEntityException(__('Book with id "%1" does not exist.', $bookId));
+        }
         return $book;
+    }
+
+    /**
+     * Load Book data collection by given search criteria
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return BookSearchResultsInterface
+     */
+    public function getList(SearchCriteriaInterface $searchCriteria)
+    {
+        $collection = $this->bookCollectionFactory->create();
+
+        $this->collectionProcessor->process($searchCriteria, $collection);
+
+        /** @var BookSearchResultsInterface $searchResults */
+        $searchResults = $this->searchResultsFactory->create();
+        $searchResults->setSearchCriteria($searchCriteria);
+        $searchResults->setItems($collection->getItems());
+        $searchResults->setTotalCount($collection->getSize());
+
+        return $searchResults;
+    }
+
+    /**
+     * Delete a Book
+     * @param BookInterface $book
+     * @return bool
+     * @throws CouldNotDeleteException
+     */
+    public function delete(BookInterface $book)
+    {
+        try {
+            $this->bookResource->delete($book);
+        } catch (\Exception $exception) {
+            throw new CouldNotDeleteException(__($exception->getMessage()));
+        }
+        return true;
+    }
+
+    /**
+     * Delete a Book by given Book Identity
+     * @param $bookId
+     * @return bool
+     * @throws CouldNotDeleteException
+     * @throws NoSuchEntityException
+     */
+    public function deleteById($bookId)
+    {
+        return $this->delete($this->getById($bookId));
     }
 }

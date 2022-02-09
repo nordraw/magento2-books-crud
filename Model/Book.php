@@ -24,12 +24,6 @@ class Book extends AbstractModel implements IdentityInterface, BookInterface
         return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
-    public function getDefaultValues()
-    {
-        $values = [];
-        return $values;
-    }
-
     public function getId()
     {
         return $this->getData('book_id');

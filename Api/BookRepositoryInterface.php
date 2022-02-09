@@ -2,33 +2,44 @@
 
 namespace Encomage\Books\Api;
 
-use \Encomage\Books\Api\Data\BookInterface;
-
 interface BookRepositoryInterface
 {
     /**
-     * Create or update a book
-     * @param BookInterface $book
-     * @return BookInterface
+     * Save a book
+     * @param \Encomage\Books\Api\Data\BookInterface $book
+     * @return \Encomage\Books\Api\Data\BookInterface
      */
-    public function save($book);
+    public function save(Data\BookInterface $book);
 
     /**
-     * Get a book by Id
-     * @param $id
-     * @return BookInterface
+     * Retrieve a book
+     * @param $bookId
+     * @return \Encomage\Books\Api\Data\BookInterface
      */
-    public function getById($id);
+    public function getById($bookId);
 
     /**
-     * Get a collection of all books
+     * Retrieve books matching the specified criteria.
+     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
+     * @return \Magento\Cms\Api\Data\BlockSearchResultsInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getAll();
+    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
 
     /**
-     * Delete a book by Id
-     * @param $id
-     * @return BookInterface
+     * Delete a book
+     * @param \Encomage\Books\Api\Data\BookInterface $book
+     * @return bool true on success
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function deleteById($id);
+    public function delete(Data\BookInterface $book);
+
+    /**
+     * Delete a book by ID
+     * @param $bookId
+     * @return bool true on success
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function deleteById($bookId);
 }

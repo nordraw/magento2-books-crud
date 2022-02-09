@@ -2,6 +2,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Encomage\Books\Api\BookRepositoryInterface" type="Encomage\Books\Model\BookRepository"/>
     <preference for="Encomage\Books\Api\Data\BookInterface" type="Encomage\Books\Model\Book"/>
+    <preference for="Encomage\Books\Api\Data\BookSearchResultsInterface" type="Encomage\Books\Model\BookSearchResults"/>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">

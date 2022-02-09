@@ -26,7 +26,7 @@ class Delete implements HttpGetActionInterface
 
     public function execute()
     {
-        $bookId = $this->request->getParams('id');
+        $bookId = $this->request->getParam('id');
 
         $this->bookRepository->deleteById($bookId);
 

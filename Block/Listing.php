@@ -2,29 +2,42 @@
 
 namespace Encomage\Books\Block;
 
+use \Magento\Framework\Api\SortOrder;
 use \Magento\Framework\View\Element\Template;
 use \Magento\Framework\View\Element\Template\Context;
 use \Encomage\Books\Api\BookRepositoryInterface;
+use \Magento\Framework\Api\Search\SearchCriteriaBuilder;
+use \Magento\Framework\Api\FilterBuilder;
 
 class Listing extends Template
 {
     protected $bookRepository;
+    protected $searchCriteriaBuilder;
+    protected $filterBuilder;
 
     public function __construct(
         Context                 $context,
         BookRepositoryInterface $bookRepository,
+        SearchCriteriaBuilder   $searchCriteriaBuilder,
+        FilterBuilder           $filterBuilder,
         array                   $data = []
     )
     {
         $this->bookRepository = $bookRepository;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->filterBuilder = $filterBuilder;
         parent::__construct($context, $data);
     }
 
     public function getResult()
     {
-        $bookCollection = $this->bookRepository->getAll();
+        $this->searchCriteriaBuilder->addSortOrder('book_id', SortOrder::SORT_ASC);
+        $searchCriteria = $this->searchCriteriaBuilder->create();
 
-        return $bookCollection;
+        $searchResult = $this->bookRepository->getList($searchCriteria);
+        $items = $searchResult->getItems();
+
+        return $items;
     }
 
     public function getInsertUrl()

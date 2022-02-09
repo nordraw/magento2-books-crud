@@ -4,11 +4,5 @@
     <menu>
         <add id="Encomage_Books::view" title="Books" module="Encomage_Books" sortOrder="10"
              action="books/book/listing" resource="Encomage_Books::view"/>
-<!--        <add id="Encomage_Books::menu" title="Listing" module="Encomage_Books" sortOrder="20"-->
-<!--             parent="Encomage_Books::view" action="books/book/index" resource="Encomage_Books::menu"/>-->
-<!--        <add id="Encomage_Books::menu1" title="Insert" module="Encomage_Books" sortOrder="30"-->
-<!--             parent="Encomage_Books::view" action="books/book/insert" resource="Encomage_Books::menu"/>-->
-<!--        <add id="Encomage_Books::menu2" title="Edit" module="Encomage_Books" sortOrder="40"-->
-<!--             parent="Encomage_Books::view" action="books/book/edit" resource="Encomage_Books::menu"/>-->
     </menu>
 </config>

@@ -1,48 +1,47 @@
-<?php foreach ($block->getBookData() as $item): ?>
-    <form action="<?php echo $block->getSaveUrl(); ?>" method="post"
-          enctype="multipart/form-data">
-        <table>
-            <tr>
-                <th><?php echo __('Id'); ?></th>
-                <th><?php echo __('Title'); ?></th>
-                <th><?php echo __('Author'); ?></th>
-                <th><?php echo __('Total Pages'); ?></th>
-            </tr>
-            <tr>
-                <th>
-                    <div class="input-group">
-                        <input name="book_id" type="text" class="form-control"
-                               value="<?php echo $item['book_id']; ?>" readonly>
-                    </div>
-                </th>
-                <br>
-                <th>
-                    <div class="input-group">
-                        <input name="title" type="text" class="form-control" placeholder="Book title"
-                               value="<?php echo $item['title']; ?>" required="true">
-                    </div>
-                </th>
-                <br>
-                <th>
-                    <div class="input-group">
-                        <input name="author" type="text" class="form-control" placeholder="Author"
-                               value= <?php echo $item['author']; ?> required="true">
-                    </div>
-                </th>
-                <br>
-                <th>
-                    <div class="input-group">
-                        <input name="total_pages" type="number" class="form-control" placeholder="Total Pages"
-                               value= <?php echo $item['total_pages']; ?> required="true">
-                    </div>
-                </th>
-            </tr>
-        </table>
-        <br>
-        <div class="form-group">
-            <div>
-                <button type="submit"><?php echo __('Update book'); ?></button>
-            </div>
+<?php $book = $block->getBookData(); ?>
+<form action="<?php echo $block->getSaveUrl(); ?>" method="post"
+      enctype="multipart/form-data">
+    <table>
+        <tr>
+            <th><?php echo __('Id'); ?></th>
+            <th><?php echo __('Title'); ?></th>
+            <th><?php echo __('Author'); ?></th>
+            <th><?php echo __('Total Pages'); ?></th>
+        </tr>
+        <tr>
+            <th>
+                <div class="input-group">
+                    <input name="book_id" type="text" class="form-control"
+                           value="<?php echo $book['book_id']; ?>" readonly>
+                </div>
+            </th>
+            <br>
+            <th>
+                <div class="input-group">
+                    <input name="title" type="text" class="form-control" placeholder="Book title"
+                           value="<?php echo $book['title']; ?>" required="true">
+                </div>
+            </th>
+            <br>
+            <th>
+                <div class="input-group">
+                    <input name="author" type="text" class="form-control" placeholder="Author"
+                           value= <?php echo $book['author']; ?> required="true">
+                </div>
+            </th>
+            <br>
+            <th>
+                <div class="input-group">
+                    <input name="total_pages" type="number" class="form-control" placeholder="Total Pages"
+                           value= <?php echo $book['total_pages']; ?> required="true">
+                </div>
+            </th>
+        </tr>
+    </table>
+    <br>
+    <div class="form-group">
+        <div>
+            <button type="submit"><?php echo __('Update book'); ?></button>
         </div>
-    </form>
-<?php endforeach; ?>
+    </div>
+</form>

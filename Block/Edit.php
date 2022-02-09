@@ -28,9 +28,9 @@ class Edit extends Template
     {
         $bookId = $this->request->getParam('id');
 
-        $bookCollection = $this->bookRepository->getById($bookId);
+        $book = $this->bookRepository->getById($bookId);
 
-        return $bookCollection;
+        return $book;
     }
 
     public function getSaveUrl()
